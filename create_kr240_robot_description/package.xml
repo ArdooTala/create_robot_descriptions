@@ -1,0 +1,20 @@
+<?xml version="1.0"?>
+<package format="3">
+  <name>create_kr240_robot_description</name>
+  <version>0.1.0</version>
+  <description>Robot desctriptions for the CREATE lab's KUKA FORTEC KR240.</description>
+  <author email="art@iti.sdu.dk">Ardeshir Talaei</author>
+  <maintainer email="art@iti.sdu.dk">Ardeshir Talaei</maintainer>
+  <license>Apache-2.0</license>
+  <buildtool_depend>ament_cmake</buildtool_depend>
+  <depend>urdf</depend>
+  <depend>xacro</depend>
+  <exec_depend>launch_ros</exec_depend>
+  <exec_depend>joint_state_publisher_gui</exec_depend>
+  <exec_depend>robot_state_publisher</exec_depend>
+  <exec_depend>rviz2</exec_depend>
+  <export>
+    <architecture_independent/>
+    <build_type>ament_cmake</build_type>
+  </export>
+</package>
