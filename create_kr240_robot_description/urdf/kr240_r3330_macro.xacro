@@ -148,7 +148,7 @@
 
     <!-- JOINTS -->
     <!-- joint 1 (A1) -->
-    <joint name="${prefix}joint_1" type="revolute">
+    <joint name="${prefix}joint_a1" type="revolute">
       <axis xyz="0.0 0.0 1.0"/>
       <child link="${prefix}link_1"/>
       <limit effort="1.44E4" lower="-3.2288591125E0" upper="3.2288591125E0" velocity="1.7456E0"/>
@@ -156,7 +156,7 @@
       <parent link="${prefix}base_link"/>
     </joint>
     <!-- joint 2 (A2) -->
-    <joint name="${prefix}joint_2" type="revolute">
+    <joint name="${prefix}joint_a2" type="revolute">
       <axis xyz="0.0 0.0 1.0"/>
       <child link="${prefix}link_2"/>
       <limit effort="1.44E4" lower="-2.268928025E0" upper="3.4906585E-1" velocity="1.5713E0"/>
@@ -164,7 +164,7 @@
       <parent link="${prefix}link_1"/>
     </joint>
     <!-- joint 3 (A3) -->
-    <joint name="${prefix}joint_3" type="revolute">
+    <joint name="${prefix}joint_a3" type="revolute">
       <axis xyz="0.0 0.0 1.0"/>
       <child link="${prefix}link_3"/>
       <limit effort="1.28158064E4" lower="-1.74532925E0" upper="2.51327412E0" velocity="1.5711E0"/>
@@ -172,7 +172,7 @@
       <parent link="${prefix}link_2"/>
     </joint>
     <!-- joint 4 (A4) -->
-    <joint name="${prefix}joint_4" type="revolute">
+    <joint name="${prefix}joint_a4" type="revolute">
       <axis xyz="0.0 0.0 1.0"/>
       <child link="${prefix}link_4"/>
       <limit effort="4.0569749E3" lower="-6.108652375E0" upper="6.108652375E0" velocity="2.0947E0"/>
@@ -180,7 +180,7 @@
       <parent link="${prefix}link_3"/>
     </joint>
     <!-- joint 5 (A5) -->
-    <joint name="${prefix}joint_5" type="revolute">
+    <joint name="${prefix}joint_a5" type="revolute">
       <axis xyz="0.0 0.0 1.0"/>
       <child link="${prefix}link_5"/>
       <limit effort="4.0569749E3" lower="-2.0943951E0" upper="2.0943951E0" velocity="2.0938E0"/>
@@ -188,7 +188,7 @@
       <parent link="${prefix}link_4"/>
     </joint>
     <!-- joint 6 (A6) -->
-    <joint name="${prefix}joint_6" type="revolute">
+    <joint name="${prefix}joint_a6" type="revolute">
       <axis xyz="0.0 0.0 1.0"/>
       <child link="${prefix}link_6"/>
       <limit effort="2.235192E3" lower="-6.108652375E0" upper="6.108652375E0" velocity="2.7844E0"/>
