@@ -20,7 +20,7 @@
         <geometry>
             <mesh filename="file://$(find create_kr240_robot_description)/meshes/kl4000/visual/KL4000_Rail.dae"/>
         </geometry>
-        <origin rpy="-3.141592653589793 0.0 -0.0" xyz="0.0 -4.898587196589413e-17 0.4"/>
+        <origin rpy="0.0 0.0 0.0" xyz="0.0 0.0 0.0"/>
       </visual>
     </link>
     <!-- link Carriage -->
@@ -29,29 +29,29 @@
         <geometry>
           <mesh filename="file://$(find create_kr240_robot_description)/meshes/kl4000/collision/KL4000_Carriage_Collision.stl"/>
         </geometry>
-        <origin rpy="0.0 0.0 0.0" xyz="0.0 0.0 0.0"/>
+        <origin rpy="0.0 0.0 3.14159" xyz="0.0 0.0 0.0"/>
       </collision>
       <inertial>
         <inertia ixx="14.5413" ixy="0.0" ixz="0.0" iyy="147.936" iyz="0.0" izz="151.0383"/>
         <mass value="4.476E2"/>
-        <origin rpy="0.0 0.0 0.0" xyz="0.0 0.0 0.0"/>
+        <origin rpy="0.0 0.0 3.14159" xyz="0.0 0.0 0.0"/>
       </inertial>
       <visual>
         <geometry>
             <mesh filename="file://$(find create_kr240_robot_description)/meshes/kl4000/visual/KL4000_Carriage.dae"/>
         </geometry>
-        <origin rpy="0.0 0.0 0.0" xyz="0.0 0.0 0.0"/>
+        <origin rpy="0.0 0.0 3.14159" xyz="0.0 0.0 0.0"/>
       </visual>
     </link>
     <!-- END LINKS -->
 
     <!-- JOINTS -->
     <!-- joint rail-carriage -->
-    <joint name="${prefix}rail-carriage" type="linear">
+    <joint name="${prefix}rail-carriage" type="prismatic">
       <axis xyz="1.0 0.0 0.0"/>
       <child link="${prefix}carriage"/>
-      <limit effort="1.44E4" lower="-5000.0" upper="1000.0" velocity="500"/>
-      <origin rpy="0.0 0.0 0.0" xyz="0.0 0.0 0.0"/>
+      <limit effort="1.44E4" lower="-4.0" upper="1.0" velocity="0.5"/>
+      <origin rpy="0.0 0.0 3.14159" xyz="1.0 0.0 0.689"/>
       <parent link="${prefix}rail"/>
     </joint>
     <!-- END JOINTS -->
@@ -59,7 +59,7 @@
     <link name="${prefix}mount"/>
     <joint name="${prefix}carriage-mount" type="fixed">
       <child link="${prefix}mount"/>
-      <origin rpy="0.0 0.0 0.0" xyz="0.0 0.0 0.0"/>
+      <origin rpy="0.0 0.0 3.14159" xyz="0.0 0.0 0.0"/>
       <parent link="${prefix}carriage"/>
     </joint>
   </xacro:macro>

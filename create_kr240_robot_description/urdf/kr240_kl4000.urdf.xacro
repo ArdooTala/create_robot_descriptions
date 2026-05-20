@@ -5,12 +5,12 @@
     <xacro:include filename="$(find create_kr240_robot_description)/urdf/kr240_r3330_macro.xacro" />
     <xacro:include filename="$(find create_kr240_robot_description)/urdf/kl4000_macro.xacro" />
 
-    <xacro:kuka_kr240_r3330_robot prefix="${prefix}"/>
-    <xacro:kuka_kl4000_rail prefix="${prefix}"/>
+    <xacro:kuka_kr240_r3330_robot prefix=""/>
+    <xacro:kuka_kl4000_rail prefix=""/>
 
-    <joint name="${prefix}carriage-robot" type="fixed">
-      <child link="${prefix}base"/>
+    <joint name="$carriage-robot" type="fixed">
+      <child link="base_link"/>
       <origin rpy="0.0 0.0 0.0" xyz="0.0 0.0 0.0"/>
-      <parent link="${prefix}mount"/>
+      <parent link="mount"/>
     </joint>
 </robot>
