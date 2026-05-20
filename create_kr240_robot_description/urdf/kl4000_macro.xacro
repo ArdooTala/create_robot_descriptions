@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<robot xmlns:xacro="http://www.ros.org/wiki/xacro" name="kl4000">
+
+  <xacro:macro name="kuka_kl4000_rail" params="prefix">
+    <!-- LINKS -->
+    <!-- rail link -->
+    <link name="${prefix}rail">
+      <collision>
+        <geometry>
+          <mesh filename="file://$(find create_kr240_robot_description)/meshes/kl4000/collision/KL4000_Rail_Collision.stl"/>
+        </geometry>
+        <origin rpy="0.0 0.0 0.0" xyz="0.0 0.0 0.0"/>
+      </collision>
+      <inertial>
+        <inertia ixx="0.0" ixy="0.0" ixz="0.0" iyy="6.87109208044536E-31" iyz="0.0" izz="108.5602"/>
+        <mass value="8.506E2"/>
+        <origin rpy="0.0 0.0 0.0" xyz="0.0 0.0 0.0"/>
+      </inertial>
+      <visual>
+        <geometry>
+            <mesh filename="file://$(find create_kr240_robot_description)/meshes/kl4000/visual/KL4000_Rail.dae"/>
+        </geometry>
+        <origin rpy="-3.141592653589793 0.0 -0.0" xyz="0.0 -4.898587196589413e-17 0.4"/>
+      </visual>
+    </link>
+    <!-- link Carriage -->
+    <link name="${prefix}carriage">
+      <collision>
+        <geometry>
+          <mesh filename="file://$(find create_kr240_robot_description)/meshes/kl4000/collision/KL4000_Carriage_Collision.stl"/>
+        </geometry>
+        <origin rpy="0.0 0.0 0.0" xyz="0.0 0.0 0.0"/>
+      </collision>
+      <inertial>
+        <inertia ixx="14.5413" ixy="0.0" ixz="0.0" iyy="147.936" iyz="0.0" izz="151.0383"/>
+        <mass value="4.476E2"/>
+        <origin rpy="0.0 0.0 0.0" xyz="0.0 0.0 0.0"/>
+      </inertial>
+      <visual>
+        <geometry>
+            <mesh filename="file://$(find create_kr240_robot_description)/meshes/kl4000/visual/KL4000_Carriage.dae"/>
+        </geometry>
+        <origin rpy="0.0 0.0 0.0" xyz="0.0 0.0 0.0"/>
+      </visual>
+    </link>
+    <!-- END LINKS -->
+
+    <!-- JOINTS -->
+    <!-- joint rail-carriage -->
+    <joint name="${prefix}rail-carriage" type="linear">
+      <axis xyz="1.0 0.0 0.0"/>
+      <child link="${prefix}carriage"/>
+      <limit effort="1.44E4" lower="-5000.0" upper="1000.0" velocity="500"/>
+      <origin rpy="0.0 0.0 0.0" xyz="0.0 0.0 0.0"/>
+      <parent link="${prefix}rail"/>
+    </joint>
+    <!-- END JOINTS -->
+
+    <link name="${prefix}mount"/>
+    <joint name="${prefix}carriage-mount" type="fixed">
+      <child link="${prefix}mount"/>
+      <origin rpy="0.0 0.0 0.0" xyz="0.0 0.0 0.0"/>
+      <parent link="${prefix}carriage"/>
+    </joint>
+  </xacro:macro>
+</robot>
