@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<robot xmlns:xacro="http://www.ros.org/wiki/xacro">
+
+  <xacro:macro name="create_kr240_system_ros2_control_macro" params="name prefix is_async:=^|true use_motion_primitives_driver:=^|false eki_robot_ip:=^|127.0.0.1 eki_robot_port:=^|54600 eki_robot_meta_port:=^|54601 use_mock_hardware:=^|false initial_positions:=${dict(joint_a1=0.0,joint_a2=-1.57,joint_a3=1.57,joint_a4=0.0,joint_a5=1.57,joint_a6=0.0)}">
+
+    <xacro:include filename="$(find create_kr240_robot_description)/urdf/kr240_r3330_macro.ros2_control.xacro"></xacro:include>
+    <xacro:include filename="$(find create_kr240_robot_description)/urdf/kl4000_macro.ros2_control.xacro"></xacro:include>
+
+    <xacro:if value="${use_mock_hardware}">
+      <xacro:property name="is_async" value="false"></xacro:property>
+    </xacro:if>
+    <xacro:unless value="${use_mock_hardware}">
+      <xacro:property name="be_async" value="${is_async}"></xacro:property>
+    </xacro:unless>
+
+    <ros2_control is_async="${is_async}" name="${name}" type="system">
+
+      <hardware>
+        <xacro:if value="${use_mock_hardware}">
+          <plugin>mock_components/GenericSystem</plugin>
+        </xacro:if>
+        <xacro:if value="${use_motion_primitives_driver}">
+          <plugin>kuka_eki_motion_primitives_hw_interface/MotionPrimitivesKukaDriver</plugin>
+          <param name="robot_ip">${eki_robot_ip}</param>
+          <param name="eki_robot_port">${eki_robot_port}</param>
+          <param name="eki_robot_meta_port">${eki_robot_meta_port}</param>
+        </xacro:if>
+      </hardware>
+
+      <xacro:kuka_kr240_r3330_ros2_control prefix="${prefix}" initial_positions="${initial_positions}" />
+      <xacro:kuka_kl4000_ros2_control ext_axis_name="e1" prefix="${prefix}" />
+
+      <!-- Interfaces for motion_primitives_driver if  use_motion_primitives_driver==true-->
+      <xacro:if value="${use_motion_primitives_driver}">
+        <gpio name="motion_primitive">
+          <command_interface name="motion_type"></command_interface>
+          <command_interface name="q1"></command_interface>
+          <command_interface name="q2"></command_interface>
+          <command_interface name="q3"></command_interface>
+          <command_interface name="q4"></command_interface>
+          <command_interface name="q5"></command_interface>
+          <command_interface name="q6"></command_interface>
+          <command_interface name="pos_x"></command_interface>
+          <command_interface name="pos_y"></command_interface>
+          <command_interface name="pos_z"></command_interface>
+          <command_interface name="pos_qx"></command_interface>
+          <command_interface name="pos_qy"></command_interface>
+          <command_interface name="pos_qz"></command_interface>
+          <command_interface name="pos_qw"></command_interface>
+          <command_interface name="pos_via_x"></command_interface>
+          <command_interface name="pos_via_y"></command_interface>
+          <command_interface name="pos_via_z"></command_interface>
+          <command_interface name="pos_via_qx"></command_interface>
+          <command_interface name="pos_via_qy"></command_interface>
+          <command_interface name="pos_via_qz"></command_interface>
+          <command_interface name="pos_via_qw"></command_interface>
+          <command_interface name="blend_radius"></command_interface>
+          <command_interface name="velocity"></command_interface>
+          <command_interface name="acceleration"></command_interface>
+          <command_interface name="move_time"></command_interface>
+
+          <state_interface name="execution_status"></state_interface>
+          <state_interface name="ready_for_new_primitive"></state_interface>
+        </gpio>
+      </xacro:if>
+    </ros2_control>
+  </xacro:macro>
+</robot>

@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<robot xmlns:xacro="http://www.ros.org/wiki/xacro">
+  <xacro:macro name="kuka_kl4000_ros2_control" params="ext_axis_name prefix use_motion_primitives_driver:=^|true initial_positions:=${dict(joint_e1=0.0)}">
+
+      <joint name="${prefix}joint_${ext_axis_name}">
+      <xacro:unless value="${use_motion_primitives_driver}">
+        <command_interface name="position">
+          <param name="min">-1</param>
+          <param name="max">4</param>
+        </command_interface>
+      </xacro:unless>
+      <state_interface name="position">
+        <param name="initial_value">${initial_positions['joint_e1']}</param>
+      </state_interface>
+      <param name="axis_type">linear</param>
+    </joint>
+
+  </xacro:macro>
+</robot>

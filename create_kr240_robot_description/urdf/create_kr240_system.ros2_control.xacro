@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<robot xmlns:xacro="http://wiki.ros.org/xacro" name="create_kr240_system">
+
+  <xacro:arg name="robot_name" default="kuka"/>
+  <xacro:arg name="prefix" default=""/>
+  <xacro:arg name="use_motion_primitives_driver" default="true"/>
+  <xacro:arg name="eki_robot_ip" default="127.0.0.1"/>
+  <xacro:arg name="eki_robot_port" default="54600"/>
+  <xacro:arg name="eki_robot_meta_port" default="54601"/>
+  <xacro:arg name="is_async" default="false"/>
+
+  <!-- ros2_control mock and simulation plugins -->
+  <xacro:arg name="use_mock_hardware" default="false"/>
+  <xacro:arg name="use_external_gripper_driver" default="true"/>
+
+  <xacro:arg name="initial_positions_file" default="$(find kuka_resources)/config/initial_positions.yaml"/>
+
+  <xacro:property name="robot_name" value="$(arg robot_name)"/>
+  <!-- convert to property to use substitution in function -->
+  <xacro:property name="initial_positions_file" default="$(arg initial_positions_file)"/>
+
+  <xacro:include filename="$(find create_kr240_robot_description)/urdf/create_kr240_system_macro.xacro"/>
+  <xacro:include filename="$(find create_kr240_robot_description)/urdf/create_kr240_system_macro.ros2_control.xacro"/>
+
+  <xacro:create_kr240_system prefix="$(arg prefix)"/>
+
+  <xacro:create_kr240_system_ros2_control_macro name="$(arg robot_name)" prefix="$(arg prefix)" is_async="$(arg is_async)" use_motion_primitives_driver="$(arg use_motion_primitives_driver)" eki_robot_ip="$(arg eki_robot_ip)" eki_robot_port="$(arg eki_robot_port)" eki_robot_meta_port="$(arg eki_robot_meta_port)" use_mock_hardware="$(arg use_mock_hardware)" initial_positions="${xacro.load_yaml(initial_positions_file)}"/>
+
+</robot>

@@ -1,0 +1,10 @@
+<?xml version="1.0"?>
+<robot xmlns:xacro="http://www.ros.org/wiki/xacro" name="kr240_kl4000">
+
+    <xacro:arg name="prefix" default="" />
+
+    <xacro:include filename="$(find create_kr240_robot_description)/urdf/create_kr240_system_macro.xacro" />
+
+    <xacro:create_kr240_system prefix="${prefix}"/>
+
+</robot>
