@@ -27,7 +27,7 @@ def generate_launch_description():
                 [
                     FindPackageShare("create_kr240_robot_description"),
                     "urdf",
-                    "kr240_kl4000.urdf.xacro",
+                    "create_kr240_system.urdf.xacro",
                 ]
             ),
             " ",

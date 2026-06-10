@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <robot xmlns:xacro="http://www.ros.org/wiki/xacro" name="kl4000">
 
-  <xacro:macro name="kuka_kl4000_rail" params="prefix">
+  <xacro:macro name="kuka_kl4000_rail" params="ext_axis_name prefix">
     <!-- LINKS -->
     <!-- rail link -->
     <link name="${prefix}rail">
@@ -47,7 +47,7 @@
 
     <!-- JOINTS -->
     <!-- joint rail-carriage -->
-    <joint name="${prefix}rail-carriage" type="prismatic">
+    <joint name="${prefix}joint_${ext_axis_name}" type="prismatic">
       <axis xyz="1.0 0.0 0.0"/>
       <child link="${prefix}carriage"/>
       <limit effort="1.44E4" lower="-4.0" upper="1.0" velocity="0.5"/>
