@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<robot xmlns:xacro="http://wiki.ros.org/xacro" name="create_kr240_system">
+
+  <xacro:arg name="robot_name" default="kuka"/>
+  <xacro:arg name="prefix" default=""/>
+  <xacro:arg name="use_motion_primitives_driver" default="true"/>
+  <xacro:arg name="eki_robot_ip" default="127.0.0.1"/>
+  <xacro:arg name="eki_robot_port" default="54600"/>
+  <xacro:arg name="eki_robot_meta_port" default="54601"/>
+  <xacro:arg name="is_async" default="false"/>
+
+  <!-- ros2_control mock and simulation plugins -->
+  <xacro:arg name="use_mock_hardware" default="false"/>
+  <xacro:arg name="use_external_gripper_driver" default="false"/>
+
+  <xacro:arg name="initial_positions_file" default="$(find kuka_resources)/config/initial_positions.yaml"/>
+
+  <xacro:property name="robot_name" value="$(arg robot_name)"/>
+  <!-- convert to property to use substitution in function -->
+  <xacro:property name="initial_positions_file" default="$(arg initial_positions_file)"/>
+
+  <xacro:include filename="$(find create_kr240_robot_description)/urdf/kr240_r3330_macro.xacro"/>
+  <xacro:kuka_kr240_r3330_robot prefix="$(arg prefix)"/>
+
+  <xacro:if value="$(arg use_mock_hardware)">
+    <xacro:property name="is_async" value="false"/>
+  </xacro:if>
+  <xacro:unless value="$(arg use_mock_hardware)">
+    <xacro:property name="be_async" value="$(arg is_async)"/>
+  </xacro:unless>
+
+  <ros2_control is_async="$(arg is_async)" name="$(arg robot_name)" type="system">
+
+    <hardware>
+      <xacro:if value="$(arg use_mock_hardware)">
+        <plugin>mock_components/GenericSystem</plugin>
+      </xacro:if>
+      <xacro:if value="$(arg use_motion_primitives_driver)">
+        <plugin>kuka_eki_motion_primitives_hw_interface/MotionPrimitivesKukaDriver</plugin>
+        <param name="robot_ip">$(arg eki_robot_ip)</param>
+        <param name="eki_robot_port">$(arg eki_robot_port)</param>
+        <param name="eki_robot_meta_port">$(arg eki_robot_meta_port)</param>
+      </xacro:if>
+    </hardware>
+
+    <xacro:include filename="$(find create_kr240_robot_description)/urdf/kr240_r3330_macro.ros2_control.xacro"/>
+    <xacro:kuka_kr240_r3330_ros2_control prefix="$(arg prefix)" initial_positions="${xacro.load_yaml(initial_positions_file)}"/>
+
+    <!-- Interfaces for motion_primitives_driver if  use_motion_primitives_driver==true-->
+    <xacro:if value="$(arg use_motion_primitives_driver)">
+      <gpio name="motion_primitive">
+        <command_interface name="motion_type"/>
+        <command_interface name="q1"/>
+        <command_interface name="q2"/>
+        <command_interface name="q3"/>
+        <command_interface name="q4"/>
+        <command_interface name="q5"/>
+        <command_interface name="q6"/>
+        <command_interface name="pos_x"/>
+        <command_interface name="pos_y"/>
+        <command_interface name="pos_z"/>
+        <command_interface name="pos_qx"/>
+        <command_interface name="pos_qy"/>
+        <command_interface name="pos_qz"/>
+        <command_interface name="pos_qw"/>
+        <command_interface name="pos_via_x"/>
+        <command_interface name="pos_via_y"/>
+        <command_interface name="pos_via_z"/>
+        <command_interface name="pos_via_qx"/>
+        <command_interface name="pos_via_qy"/>
+        <command_interface name="pos_via_qz"/>
+        <command_interface name="pos_via_qw"/>
+        <command_interface name="blend_radius"/>
+        <command_interface name="velocity"/>
+        <command_interface name="acceleration"/>
+        <command_interface name="move_time"/>
+
+        <state_interface name="execution_status"/>
+        <state_interface name="ready_for_new_primitive"/>
+      </gpio>
+    </xacro:if>
+  </ros2_control>
+</robot>

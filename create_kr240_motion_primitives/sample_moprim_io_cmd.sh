@@ -1,0 +1,1 @@
+ros2 action send_goal /motion_primitive_forward_controller/motion_sequence control_msgs/action/ExecuteMotionPrimitiveSequence "{trajectory: {motions: [{type: 70, blend_radius: 0.0, additional_arguments: [{name: velocity, value: 50.0}, {name: DO2, value: 1.0}], poses: [], joint_positions: [0.0]}]}}"

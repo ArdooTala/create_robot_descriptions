@@ -77,7 +77,7 @@ def generate_launch_description():
     declared_arguments.append(
         DeclareLaunchArgument(
             "controllers_file",
-            default_value="kuka_6dof_controllers.yaml",
+            default_value="kuka_6dof_controllers_default.yaml",
             description="YAML file with the controllers configuration. \
             The expected location of the file is '<configuration_package>/config/'.",
         )
@@ -121,13 +121,6 @@ def generate_launch_description():
             description="Port by which the robot can be reached for meta communication using EKI protocol. (To stop the motion)",
         )
     )
-    declared_arguments.append(
-        DeclareLaunchArgument(
-            "eki_simulator",
-            default_value="false",
-            description="Simulate EKI using EKI simulator.",
-        )
-    )
 
     declared_arguments.append(
         DeclareLaunchArgument(
@@ -139,7 +132,7 @@ def generate_launch_description():
     declared_arguments.append(
         DeclareLaunchArgument(
             "rviz_file",
-            default_value="view_robot_system.rviz",
+            default_value="view_robot.rviz",
             description="Rviz2 configuration file of the visualization. \
             The expected location of the file is '<configuration_package>/rviz/'.",
         )
@@ -218,7 +211,6 @@ def generate_launch_description():
     eki_robot_ip = LaunchConfiguration("eki_robot_ip")
     eki_robot_port = LaunchConfiguration("eki_robot_port")
     eki_robot_meta_port = LaunchConfiguration("eki_robot_meta_port")
-    eki_simulator = LaunchConfiguration("eki_simulator")
 
     use_mock_hardware = LaunchConfiguration("use_mock_hardware")
 
@@ -240,7 +232,7 @@ def generate_launch_description():
             PathJoinSubstitution([FindExecutable(name="xacro")]),
             " ",
             PathJoinSubstitution(
-                [FindPackageShare("create_kr240_robot_description"), "urdf", "create_kr240_system.ros2_control.xacro"]
+                [FindPackageShare("create_kr240_robot_description"), "urdf", "kr240_r3330.ros2_control.xacro"]
             ),
             " ",
             "robot_name:=",
@@ -270,20 +262,17 @@ def generate_launch_description():
     )
     robot_description = {"robot_description": robot_description_content}
 
-    # EKI Simulator
-    eki_simulator_node = Node(
-        package="kuka_eki_simulator",
-        executable="kuka_eki_motion_primitives_simulator",
-        output="both",
-        condition=IfCondition(eki_simulator),
-    )
-
     # Publish TF
     robot_state_publisher_node = Node(
         package="robot_state_publisher",
         executable="robot_state_publisher",
         name="robot_state_publisher_node",
         output="both",
+        arguments = [
+            "--ros-args",
+            "--log-level",
+            log_level_all,            
+        ],            
         parameters=[robot_description],
     )
 
@@ -330,15 +319,20 @@ def generate_launch_description():
         executable="rviz2",
         name="rviz2",
         output="log",
-        arguments=["-d", rviz_config_file],
+        arguments=[
+            "-d",
+            rviz_config_file,
+            "--ros-args",
+            "--log-level",
+            log_level_all,            
+        ],
         condition=IfCondition(start_rviz),
     )
 
     nodes = [
-        eki_simulator_node,
         control_node,
         robot_state_publisher_node,
-        rviz_node,
+        rviz_node
     ]
 
     return LaunchDescription(declared_arguments + nodes + load_and_activate_controllers)

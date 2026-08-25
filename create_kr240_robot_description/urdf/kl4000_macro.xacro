@@ -50,8 +50,8 @@
     <joint name="${prefix}joint_${ext_axis_name}" type="prismatic">
       <axis xyz="1.0 0.0 0.0"/>
       <child link="${prefix}carriage"/>
-      <limit effort="1.44E4" lower="-4.0" upper="1.0" velocity="0.5"/>
-      <origin rpy="0.0 0.0 3.14159" xyz="1.0 0.0 0.689"/>
+      <limit effort="1.44E4" lower="-5.0" upper="0.1" velocity="0.5"/>
+      <origin rpy="0.0 0.0 3.14159" xyz="0.1 0.0 0.689"/>
       <parent link="${prefix}rail"/>
     </joint>
     <!-- END JOINTS -->

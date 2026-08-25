@@ -1,7 +1,6 @@
 controller_manager:
   ros__parameters:
     update_rate: 250
-    handle_exceptions: false
 
     joint_state_broadcaster:
       type: joint_state_broadcaster/JointStateBroadcaster
@@ -59,11 +58,6 @@ motion_primitive_forward_controller:
   ros__parameters:
     # tf_prefix: "$(var tf_prefix)"
     tf_prefix: ""
-
-    digital_outputs: 64
-
-    ext_joints:
-      - e1
 
 motion_primitive_from_trajectory_controller:
   ros__parameters:

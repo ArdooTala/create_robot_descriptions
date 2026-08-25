@@ -3,74 +3,72 @@
 
   <xacro:macro name="kuka_kr240_r3330_ros2_control" params="prefix use_motion_primitives_driver:=^|true initial_positions:=${dict(joint_a1=0.0,joint_a2=-1.57,joint_a3=1.57,joint_a4=0.0,joint_a5=1.57,joint_a6=0.0)}">
 
-    <xacro:if value="${use_motion_primitives_driver}">
-      <joint name="${prefix}joint_a1">
-        <xacro:unless value="${use_motion_primitives_driver}">
-          <command_interface name="position">
-            <param name="min">-1</param>
-            <param name="max">1</param>
-          </command_interface>
-        </xacro:unless>
-        <state_interface name="position">
-          <param name="initial_value">${initial_positions['joint_a1']}</param>
-        </state_interface>
-      </joint>
-      <joint name="${prefix}joint_a2">
-        <xacro:unless value="${use_motion_primitives_driver}">
-          <command_interface name="position">
-            <param name="min">-1</param>
-            <param name="max">1</param>
-          </command_interface>
-        </xacro:unless>
-        <state_interface name="position">
-          <param name="initial_value">${initial_positions['joint_a2']}</param>
-        </state_interface>
-      </joint>
-      <joint name="${prefix}joint_a3">
-        <xacro:unless value="${use_motion_primitives_driver}">
-          <command_interface name="position">
-            <param name="min">-1</param>
-            <param name="max">1</param>
-          </command_interface>
-        </xacro:unless>
-        <state_interface name="position">
-          <param name="initial_value">${initial_positions['joint_a3']}</param>
-        </state_interface>
-      </joint>
-      <joint name="${prefix}joint_a4">
-        <xacro:unless value="${use_motion_primitives_driver}">
-          <command_interface name="position">
-            <param name="min">-1</param>
-            <param name="max">1</param>
-          </command_interface>
-        </xacro:unless>
-        <state_interface name="position">
-          <param name="initial_value">${initial_positions['joint_a4']}</param>
-        </state_interface>
-      </joint>
-      <joint name="${prefix}joint_a5">
-        <xacro:unless value="${use_motion_primitives_driver}">
-          <command_interface name="position">
-            <param name="min">-1</param>
-            <param name="max">1</param>
-          </command_interface>
-        </xacro:unless>
-        <state_interface name="position">
-          <param name="initial_value">${initial_positions['joint_a5']}</param>
-        </state_interface>
-      </joint>
-      <joint name="${prefix}joint_a6">
-        <xacro:unless value="${use_motion_primitives_driver}">
-          <command_interface name="position">
-            <param name="min">-1</param>
-            <param name="max">1</param>
-          </command_interface>
-        </xacro:unless>
-        <state_interface name="position">
-          <param name="initial_value">${initial_positions['joint_a6']}</param>
-        </state_interface>
-      </joint>
-    </xacro:if>
+    <joint name="${prefix}joint_a1">
+      <xacro:unless value="${use_motion_primitives_driver}">
+        <command_interface name="position">
+          <param name="min">-1</param>
+          <param name="max">1</param>
+        </command_interface>
+      </xacro:unless>
+      <state_interface name="position">
+        <param name="initial_value">${initial_positions['joint_a1']}</param>
+      </state_interface>
+    </joint>
+    <joint name="${prefix}joint_a2">
+      <xacro:unless value="${use_motion_primitives_driver}">
+        <command_interface name="position">
+          <param name="min">-1</param>
+          <param name="max">1</param>
+        </command_interface>
+      </xacro:unless>
+      <state_interface name="position">
+        <param name="initial_value">${initial_positions['joint_a2']}</param>
+      </state_interface>
+    </joint>
+    <joint name="${prefix}joint_a3">
+      <xacro:unless value="${use_motion_primitives_driver}">
+        <command_interface name="position">
+          <param name="min">-1</param>
+          <param name="max">1</param>
+        </command_interface>
+      </xacro:unless>
+      <state_interface name="position">
+        <param name="initial_value">${initial_positions['joint_a3']}</param>
+      </state_interface>
+    </joint>
+    <joint name="${prefix}joint_a4">
+      <xacro:unless value="${use_motion_primitives_driver}">
+        <command_interface name="position">
+          <param name="min">-1</param>
+          <param name="max">1</param>
+        </command_interface>
+      </xacro:unless>
+      <state_interface name="position">
+        <param name="initial_value">${initial_positions['joint_a4']}</param>
+      </state_interface>
+    </joint>
+    <joint name="${prefix}joint_a5">
+      <xacro:unless value="${use_motion_primitives_driver}">
+        <command_interface name="position">
+          <param name="min">-1</param>
+          <param name="max">1</param>
+        </command_interface>
+      </xacro:unless>
+      <state_interface name="position">
+        <param name="initial_value">${initial_positions['joint_a5']}</param>
+      </state_interface>
+    </joint>
+    <joint name="${prefix}joint_a6">
+      <xacro:unless value="${use_motion_primitives_driver}">
+        <command_interface name="position">
+          <param name="min">-1</param>
+          <param name="max">1</param>
+        </command_interface>
+      </xacro:unless>
+      <state_interface name="position">
+        <param name="initial_value">${initial_positions['joint_a6']}</param>
+      </state_interface>
+    </joint>
 
   </xacro:macro>
 </robot>
