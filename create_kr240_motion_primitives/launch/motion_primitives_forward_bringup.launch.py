@@ -310,7 +310,7 @@ def generate_launch_description():
 
 
     load_and_activate_controllers = []
-    for controller in ["motion_primitive_forward_controller", "joint_state_broadcaster"]:
+    for controller in ["motion_primitive_forward_controller", "joint_state_broadcaster", "pose_broadcaster"]:
         load_and_activate_controllers += [
             ExecuteProcess(
                 cmd=[

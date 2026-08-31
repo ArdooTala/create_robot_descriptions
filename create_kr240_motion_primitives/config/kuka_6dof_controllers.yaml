@@ -18,6 +18,9 @@ controller_manager:
     motion_primitive_from_trajectory_controller:
       type: motion_primitives_controllers/MotionPrimitivesFromTrajectoryController
 
+    pose_broadcaster:
+      type: pose_broadcaster/PoseBroadcaster
+
 forward_position_controller:
   ros__parameters:
     joints:
@@ -86,3 +89,10 @@ motion_primitive_from_trajectory_controller:
     # joint_acc_overwrite: 0.5
     # cart_vel_overwrite: 5.0
     # cart_acc_overwrite: 5.0
+
+pose_broadcaster:
+  ros__parameters:
+    frame_id: "rail"
+    pose_name: "pos_act"
+    tf:
+      enable: true
